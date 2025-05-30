@@ -1,0 +1,262 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap");
+:root {
+  --blue: #142988;
+  --light-blue: #c4ccffe3;
+  --red: #8b180d;
+  --pink: #ce7a84;
+  --bg: #0f1945;
+  --blue-arrow: #0e1b56;
+  --red-arrow: #620d05;
+}
+.tricuspid-valve-1,
+.tricuspid-valve-2 {
+  fill: var(--pink);
+}
+.mitral-valve-1,
+.mitral-valve-2,
+.pulmonary-valve-1,
+.pulmonary-valve-2,
+.aortic-valve-1,
+.aortic-valve-2,
+.pink {
+  fill: var(--pink);
+}
+.atrium-r {
+  fill: var(--blue);
+}
+.atrium-l,
+.aorta-main,
+.ventricle-l {
+  fill: var(--red);
+}
+.ventricle-r,
+.blue {
+  fill: var(--blue);
+}
+.superior-vena-cava-short,
+.pulmonary-vein-short,
+.pulmonary-artery,
+.pulmonary-vein,
+.aorta {
+  fill: transparent;
+}
+.arrow {
+  position: absolute;
+  top: -35px;
+  left: -40px;
+  opacity: 0;
+  visibility: hidden;
+  outline: 1px solid red;
+}
+/* adjust offsets because it's in a ForeignObject element within the svg element */
+.rapid-ejection-aorta-arrow {
+  top: -75px;
+  left: -88px;
+}
+.arrow svg {
+  fill: none;
+  stroke: var(--blue-arrow);
+  stroke-linecap: round;
+  stroke-miterlimit: 10;
+  stroke-width: 10px;
+  transform: scale(66%);
+}
+.rapid-ejection-aorta-arrow svg {
+  /* transform: scale(55%); */
+}
+.red svg {
+  stroke: var(--red-arrow);
+}
+.st0 {
+  fill: none;
+  stroke: #000000;
+  stroke-width: 7;
+  stroke-linecap: round;
+  stroke-miterlimit: 10;
+}
+
+body {
+  background-color: var(--bg);
+  color: rgb(217, 224, 243);
+  font-family: "Roboto Mono", monospace;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+.model {
+  display: flex;
+  gap: 1rem;
+}
+.heart,
+.heart-info {
+  flex-grow: 1;
+}
+.heart-info {
+  overflow: hidden;
+}
+.model ul {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+  position: relative;
+  background: rgba(0, 0, 0, 0.1);
+  margin: 0;
+}
+.model ul li {
+  width: 100%;
+  padding: 0.5rem 0;
+}
+.model ul:first-of-type::after,
+.model ul:nth-of-type(2)::after {
+  content: "Systole";
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  font-size: 40pt;
+  text-transform: uppercase;
+}
+.model ul:nth-of-type(2)::after {
+  content: "Diastole";
+}
+.model ul:first-of-type {
+  border-bottom: 1px solid rgb(105, 115, 229);
+}
+.phases {
+  position: relative;
+  align-self: start;
+}
+.phases::before {
+  content: "";
+  height: 2px;
+  width: 105%;
+  transform: translateX(-50%);
+  background-color: rgb(248, 25, 25);
+  position: absolute;
+  top: 0%;
+  left: 50%;
+}
+.phases .active {
+  color: rgb(138, 148, 255);
+}
+h2 {
+  text-align: center;
+}
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #2196f3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196f3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* table */
+
+td {
+  border: 1px solid var(--blue);
+}
+td:first-child {
+  border-width: 0;
+}
+tr td:first-of-type {
+  border-left-width: 0;
+}
+table tr:nth-child(2) td {
+  border-top-width: 0;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 20px;
+  width: calc(100% - 3rem);
+  margin: auto;
+  table-layout: fixed;
+}
+td {
+  vertical-align: middle;
+}
+tr th {
+  background-color: var(--blue);
+}
+th,
+td {
+  padding: 15px;
+  text-align: center;
+}
+tr th:first-child {
+  text-align: left;
+  border-bottom: 1px solid var(--blue);
+}
+tr.active th,
+tr.active td {
+  background-color: var(--light-blue);
+  color: var(--blue);
+}
+tr.active td {
+  border: 1px solid var(--light-blue);
+}
+tr.active td:first-of-type {
+  border-left-width: 0;
+}
+tr.active th {
+  border-bottom: 1px solid var(--light-blue);
+}
+/* tr.active {
+  position: relative;
+}
+tr.active th::before {
+  content: "\25B6";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateX(calc((100% + 0.5rem) * -1)) translateY(-50%);
+  font-size: 200%;
+  color: var(--light-blue);
+} */
