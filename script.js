@@ -41,7 +41,7 @@ const audioPlay = async url => {
 
 
 //options
-const autoplayOption = false;
+const autoplayOption = true;
 const loopOption = true;
 const rateOption = .125;
 

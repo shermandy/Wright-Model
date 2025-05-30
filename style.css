@@ -46,7 +46,7 @@
   left: -40px;
   opacity: 0;
   visibility: hidden;
-  outline: 1px solid red;
+  /* outline: 1px solid red; */
 }
 /* adjust offsets because it's in a ForeignObject element within the svg element */
 .rapid-ejection-aorta-arrow {
