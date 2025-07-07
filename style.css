@@ -1,12 +1,46 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap");
 :root {
   --blue: #142988;
-  --light-blue: #c4ccffe3;
+  --red: #8b180d;
+  --light-blue: #c4ccff;
+  --light-red: #f4c4cc;
   --red: #8b180d;
   --pink: #ce7a84;
   --bg: #0f1945;
+  --bg-red: #38030a;
   --blue-arrow: #0e1b56;
   --red-arrow: #620d05;
+  --bolus-blue: #5368f3e3;
+  --bolus-red: #f35353e3;
+
+  --table-head-bg-blue: #2449ee2f;
+  --table-lines-blue: #253ca5;
+  --table-active-bg-blue: rgb(35, 55, 143);
+  --table-lines-active-blue: #4760cf;
+
+  --table-head-bg-red: #ee24242f;
+  --table-lines-red: #a52525;
+  --table-active-bg-red: rgb(143, 35, 35);
+  --table-lines-active-red: #cf4747;
+}
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+main {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.heart {
+}
+.table {
+  flex: 1 1 0;
+}
+.controls {
+  order: 3;
+  flex-basis: 100%;
 }
 .tricuspid-valve-1,
 .tricuspid-valve-2 {
@@ -33,12 +67,19 @@
 .blue {
   fill: var(--blue);
 }
+.superior-vena-cava,
 .superior-vena-cava-short,
 .pulmonary-vein-short,
 .pulmonary-artery,
 .pulmonary-vein,
-.aorta {
+.aorta,
+.bolus-right-path,
+.bolus-left-path {
   fill: transparent;
+}
+.bolus-right-path,
+.bolus-left-path {
+  /* stroke: red; */
 }
 .arrow {
   position: absolute;
@@ -86,6 +127,15 @@ body {
 .model {
   display: flex;
   gap: 1rem;
+}
+.model .heart {
+  display: grid;
+  align-items: center;
+}
+.heart-layer {
+  grid-row-start: 1;
+  grid-column-start: 1;
+  position: relative;
 }
 .heart,
 .heart-info {
@@ -199,64 +249,485 @@ input:checked + .slider:before {
 }
 
 /* table */
-
-td {
-  border: 1px solid var(--blue);
+.red table {
+  background-color: var(--bg-red);
 }
+tr {
+  /* border-bottom: 1px solid var(--blue); */
+}
+/* .active td {
+  border-color: var(--table-lines-active);
+} */
 td:first-child {
   border-width: 0;
 }
 tr td:first-of-type {
   border-left-width: 0;
 }
-table tr:nth-child(2) td {
+/* table tr:nth-child(2) td {
   border-top-width: 0;
-}
+} */
 table {
   border-collapse: collapse;
-  border-spacing: 20px;
+  border-spacing: 0;
   width: calc(100% - 3rem);
   margin: auto;
   table-layout: fixed;
+  font-size: 0.85rem;
 }
 td {
   vertical-align: middle;
 }
 tr th {
-  background-color: var(--blue);
+  /* background-color: var(--blue); */
 }
-th,
+
 td {
-  padding: 15px;
+  padding: 10px;
   text-align: center;
 }
-tr th:first-child {
+td:last-of-type {
+  /* border-right-width: 0; */
+}
+tr th {
+  padding: 15px;
+}
+.red tr th:first-child,
+.blue tr th:first-child {
   text-align: left;
-  border-bottom: 1px solid var(--blue);
+  padding-right: 2rem;
 }
-tr.active th,
-tr.active td {
-  background-color: var(--light-blue);
-  color: var(--blue);
+.red tr th:first-child {
+  background-color: var(--table-head-bg-red);
 }
-tr.active td {
-  border: 1px solid var(--light-blue);
+.blue tr th:first-child {
+  text-align: left;
+  padding-right: 2rem;
+  background-color: var(--table-head-bg-blue);
 }
-tr.active td:first-of-type {
-  border-left-width: 0;
+
+tr:first-child th {
+  /* border-left: 1px solid var(--blue); */
 }
-tr.active th {
-  border-bottom: 1px solid var(--light-blue);
+.blue tr:first-child th,
+.blue tr:first-child td {
+  background-color: var(--table-head-bg-blue);
 }
-/* tr.active {
+.red tr:first-child th,
+.red tr:first-child td {
+  background-color: var(--table-head-bg-red);
+}
+/* tr:nth-last-child(1 of .active) td {
+  background-color: var(--table-active-bg);
+} */
+.blue tr.highlight th,
+.blue tr.highlight td {
+  background-color: var(--table-active-bg-blue);
+  color: var(--light-blue);
+}
+.red tr.highlight th,
+.red tr.highlight td {
+  background-color: var(--table-active-bg-red);
+  color: var(--light-red);
+}
+.blue tr td,
+.red tr td {
+  font-size: 1.5rem;
+}
+.blue tr td {
+  border: solid var(--table-lines-blue);
+  border-width: 0 1px 1px 0;
+}
+.red tr td {
+  border: solid var(--table-lines-red);
+  border-width: 0 1px 1px 0;
+}
+.blue tr.highlight td {
+  border: solid var(--table-lines-active-blue);
+  border-width: 0 1px 0 0;
+}
+.red tr.highlight td {
+  border: solid var(--table-lines-active-red);
+  border-width: 0 1px 0 0;
+}
+tr.highlight td.animatedValve {
+  border-width: 0;
+}
+.blue tr.highlight td:first-of-type {
+  border-left: 1px solid var(--table-lines-active-blue);
+}
+.red tr.highlight td:first-of-type {
+  border-left: 1px solid var(--table-lines-active-red);
+}
+.table table td,
+.table table th {
+  width: 16.666%;
+}
+#rapidFillingPhase {
   position: relative;
 }
-tr.active th::before {
-  content: "\25B6";
+table {
+  position: relative;
+}
+#rapidFillingPhase {
+  --bolus-pos: 16.666%;
+  --bolus-offset: 0px;
+  --bolus-opacity: 0;
+}
+#rapidFillingPhase td:nth-child(3) {
+  box-shadow: 0px 0px 0px 0px transparent inset;
+  -webkit-box-shadow: 0px 0px 0px 0px transparent inset;
+  -moz-box-shadow: 0px 0px 0px 0px transparent inset;
+}
+.bolus {
   position: absolute;
+  top: -18px;
+  left: -18px;
+  opacity: 0;
+}
+.bolus-left {
+  fill: var(--bolus-red);
+  z-index: 1;
+}
+.heart-layer-2 {
+  z-index: 2;
+}
+.bolus-right {
+  fill: var(--bolus-blue);
+  z-index: 3;
+}
+.pulmonary-top {
+  z-index: 999;
+}
+
+/* P QRS T labels */
+#atrialSystole th,
+#isovolumetricContraction th,
+#isovolumetricRelaxation th {
+  position: relative;
+}
+#atrialSystole th::before,
+#isovolumetricContraction th::before,
+#isovolumetricRelaxation th::before {
+  position: absolute;
+  top: 0;
   left: 0;
-  top: 50%;
-  transform: translateX(calc((100% + 0.5rem) * -1)) translateY(-50%);
-  font-size: 200%;
+  width: 50px;
+  background: var(--blue);
+  text-align: center;
+  transform: translateY(-50%) translateX(-50%);
+  /* border: 1px solid var(--light-blue); */
   color: var(--light-blue);
+}
+.red #atrialSystole th::before,
+.red #isovolumetricContraction th::before,
+.red #isovolumetricRelaxation th::before {
+  background: var(--red);
+  color: var(--light-red);
+}
+.red #atrialSystole th::before,
+.red #isovolumetricContraction th::before,
+.red #isovolumetricRelaxation th::before {
+  color: var(--light-red);
+}
+#atrialSystole th::before {
+  content: "P";
+}
+#isovolumetricContraction th::before {
+  content: "QRS";
+}
+#isovolumetricRelaxation th::before {
+  content: "T";
+}
+#rightVentricle,
+#pulmonaryTrunk {
+  position: relative;
+}
+#rightVentricle::before,
+#pulmonaryTrunk::before {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  background: var(--blue);
+  transform: translateX(-50%);
+  color: var(--light-blue);
+  white-space: nowrap;
+  z-index: 2;
+  padding: 0.5rem 0.25rem;
+}
+.red #rightVentricle::before,
+.red #pulmonaryTrunk::before {
+  background: var(--red);
+  color: var(--light-red);
+}
+#rightVentricle::before {
+  content: "Tricuspid Valve";
+}
+#pulmonaryTrunk::before {
+  content: "Pulmonary Valve";
+}
+/* pathways between cells in table */
+.openValve,
+.animatedValve {
+  position: relative;
+}
+.openValve::after {
+  content: "⟶";
+  width: 40px;
+  height: 30px;
+  background: var(--blue-arrow);
+  color: var(--light-blue);
+  border: solid var(--table-lines-active-blue);
+  border-width: 2px 0;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  text-align: center;
+  font-size: 1.75rem;
+  line-height: 10px;
+  transform: translateY(-50%) translateX(50%);
+  z-index: 1;
+}
+.red .openValve::after {
+  background: var(--table-head-bg-red);
+  color: var(--light-red);
+  border: solid var(--table-lines-active-red);
+}
+.highlight .openValve::after {
+  background-color: var(--table-active-bg-blue);
+}
+.red .highlight .openValve::after {
+  background-color: var(--table-active-bg-red);
+}
+.openValve.flippedValve::after {
+  content: "⟵";
+}
+.animatedValve {
+  border-right-width: 0;
+}
+/* .tableHead .animatedValve.open + td {
+  border-left-width: 0;
 } */
+.animatedValve::after,
+.animatedValve::before {
+  content: "";
+  width: 5px;
+  height: 50%;
+  background-color: var(--table-lines-blue);
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform-origin: center 0%;
+  transition: transform 250ms ease;
+  z-index: 1;
+}
+.red .animatedValve::after,
+.red .animatedValve::before {
+  background-color: var(--table-lines-red);
+}
+.animatedValve::after {
+  transform: rotate(0deg);
+}
+.animatedValve::before {
+  transform-origin: center 100%;
+  top: 100%;
+  transform: translateY(-100%) rotate(0deg);
+}
+.animatedValve.closed::after {
+  transform: translateY(3px) rotate(-60deg);
+}
+.animatedValve.closed::before {
+  transform: translateY(-100%) rotate(60deg);
+}
+.openTricuspid .animatedValve.tricuspid.open::before,
+.openPulmonary .animatedValve.pulmonary.open::before {
+  transform: translateY(calc(-100% - 3px)) rotate(60deg);
+  background: var(--table-lines-blue);
+  z-index: 1;
+  /* transition: transform 250ms ease; */
+}
+.red .openTricuspid .animatedValve.tricuspid.open::before,
+.red .openPulmonary .animatedValve.pulmonary.open::before {
+  background: var(--table-lines-red);
+}
+.openTricuspid .animatedValve.tricuspid.open::after,
+.openPulmonary .animatedValve.pulmonary.open::after {
+  transform: translateY(3px) rotate(-60deg);
+  background: var(--table-lines-blue);
+  z-index: 1;
+}
+.red .openTricuspid .animatedValve.tricuspid.open::after,
+.red .openPulmonary .animatedValve.pulmonary.open::after {
+  background: var(--table-lines-red);
+}
+.openTricuspid .animatedValve.tricuspid.closed::before,
+.openPulmonary .animatedValve.pulmonary.closed::before {
+  transform: translateY(-100%) rotate(0deg);
+  background: var(--table-lines-blue);
+}
+.red .openTricuspid .animatedValve.tricuspid.closed::before,
+.red .openPulmonary .animatedValve.pulmonary.closed::before {
+  background: var(--table-lines-red);
+}
+.openTricuspid .animatedValve.tricuspid.closed::after,
+.openPulmonary .animatedValve.pulmonary.closed::after {
+  background: var(--table-lines-blue);
+}
+.red .openTricuspid .animatedValve.tricuspid.closed::after,
+.red .openPulmonary .animatedValve.pulmonary.closed::after {
+  background: var(--table-lines-red);
+}
+.animatedValve.closed {
+  position: relative;
+}
+.highlight .animatedValve::before,
+.highlight .animatedValve::after,
+.openTricuspid .highlight .animatedValve.open::before,
+.openTricuspid .highlight .animatedValve.open::after,
+.openPulmonary .highlight .animatedValve.open::before,
+.openPulmonary .highlight .animatedValve.open::after {
+  background-color: var(--table-lines-active-blue);
+}
+.red .highlight .animatedValve::before,
+.red .highlight .animatedValve::after,
+.red .openTricuspid .highlight .animatedValve.open::before,
+.red .openTricuspid .highlight .animatedValve.open::after,
+.red .openPulmonary .highlight .animatedValve.open::before,
+.red .openPulmonary .highlight .animatedValve.open::after {
+  background-color: var(--table-lines-active-red);
+}
+.closedValve {
+  border-right: 5px solid var(--table-lines-blue);
+}
+.red .closedValve {
+  border-right: 5px solid var(--table-lines-red);
+}
+tr.active .closedValve {
+  border-right: 5px solid var(--table-lines-active-blue);
+  background-clip: padding-box;
+}
+.red tr.active .closedValve {
+  border-right: 5px solid var(--table-lines-active-red);
+}
+
+/* BOLUS OBJECTS IN TABLE */
+#rapidFillingPhase {
+  --bolus-pos: 16.666%;
+  --bolus-offset: 0px;
+  --bolus-opacity: 1;
+  position: relative;
+}
+#rapidFillingPhase::after,
+#diastasis::after,
+#atrialSystole::after,
+#isovolumetricContraction::after,
+#rapidVentricularEjection::after,
+#slowVentricularEjection::after,
+#isovolumetricRelaxation::after {
+  content: "";
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--bolus-blue);
+  border-radius: 50%;
+  position: absolute;
+  left: calc(var(--bolus-pos) - var(--bolus-offset));
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: var(--bolus-opacity);
+  z-index: 1;
+}
+.red #rapidFillingPhase::after,
+.red #diastasis::after,
+.red #atrialSystole::after,
+.red #isovolumetricContraction::after,
+.red #rapidVentricularEjection::after,
+.red #slowVentricularEjection::after,
+.red #isovolumetricRelaxation::after {
+  border: 3px solid var(--bolus-red);
+}
+#diastasis {
+  position: relative;
+  --bolus-pos: 41.665%;
+  --bolus-offset: 0px;
+  --bolus-opacity: 0;
+}
+#atrialSystole {
+  position: relative;
+  --bolus-pos: 58.333%;
+  --bolus-offset: 0px;
+  --bolus-opacity: 0;
+}
+#isovolumetricContraction {
+  position: relative;
+  --bolus-pos: 75%;
+  --bolus-offset: 10px;
+  --bolus-opacity: 0;
+}
+#rapidVentricularEjection {
+  position: relative;
+  --bolus-pos: 83.333%;
+  --bolus-offset: 15px;
+  --bolus-opacity: 0;
+}
+#slowVentricularEjection {
+  position: relative;
+  --bolus-pos: 91.666%;
+  --bolus-offset: 0px;
+  --bolus-opacity: 0;
+}
+#isovolumetricRelaxation {
+  position: relative;
+  --bolus-pos: 91.666%;
+  --bolus-offset: -15px;
+  --bolus-opacity: 0;
+}
+
+/* BOX SHADOWS */
+
+.relax,
+.contract {
+  border: 6px solid var(--table-lines-active-blue);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 99;
+}
+.red .relax,
+.red .contract {
+  border: 6px solid var(--table-lines-active-red);
+}
+.contract {
+  border-width: 0;
+}
+.sideSwitch {
+  text-align: center;
+  margin-top: 1rem;
+}
+.sideSwitch button {
+  border: 0;
+  padding: 0.5rem 1rem;
+}
+#rightSide {
+  background-color: var(--table-head-bg-blue);
+  color: var(--table-head-text-blue);
+}
+#rightSide.currentTab {
+  background: var(--table-lines-active-blue);
+}
+#leftSide {
+  background-color: var(--table-head-bg-red);
+  color: var(--table-head-text-red);
+}
+#leftSide.currentTab {
+  background: var(--table-lines-active-red);
+}
+.sideSwitch button:hover {
+  cursor: pointer;
+}
+.sideSwitch .currentTab {
+  background: darkred;
+}
