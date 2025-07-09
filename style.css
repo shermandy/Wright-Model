@@ -37,6 +37,7 @@ main {
 }
 .table {
   flex: 1 1 0;
+  margin-right: 1rem;
 }
 .controls {
   order: 3;
@@ -123,10 +124,12 @@ body {
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
+  margin: 0;
 }
 .model {
   display: flex;
   gap: 1rem;
+  margin: 1rem;
 }
 .model .heart {
   display: grid;
@@ -192,62 +195,6 @@ body {
 h2 {
   text-align: center;
 }
-/* The switch - the box around the slider */
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-}
-
-/* Hide default HTML checkbox */
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-/* The slider */
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-  border-radius: 34px;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-  border-radius: 50%;
-}
-
-input:checked + .slider {
-  background-color: #2196f3;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196f3;
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-
 /* table */
 .red table {
   background-color: var(--bg-red);
@@ -363,18 +310,19 @@ tr.highlight td.animatedValve {
 .table table th {
   width: 16.666%;
 }
-#rapidFillingPhase {
+#rapidFillingPhaseRight,
+#rapidFillingPhaseLeft {
   position: relative;
-}
-table {
-  position: relative;
-}
-#rapidFillingPhase {
   --bolus-pos: 16.666%;
   --bolus-offset: 0px;
   --bolus-opacity: 0;
 }
-#rapidFillingPhase td:nth-child(3) {
+table {
+  position: relative;
+}
+
+#rapidFillingPhaseRight td:nth-child(3),
+#rapidFillingPhaseLeft td:nth-child(3) {
   box-shadow: 0px 0px 0px 0px transparent inset;
   -webkit-box-shadow: 0px 0px 0px 0px transparent inset;
   -moz-box-shadow: 0px 0px 0px 0px transparent inset;
@@ -397,7 +345,7 @@ table {
   z-index: 3;
 }
 .pulmonary-top {
-  z-index: 999;
+  z-index: 1;
 }
 
 /* P QRS T labels */
@@ -465,8 +413,14 @@ table {
 #rightVentricle::before {
   content: "Tricuspid Valve";
 }
+.red #rightVentricle::before {
+  content: "Mitral Valve";
+}
 #pulmonaryTrunk::before {
   content: "Pulmonary Valve";
+}
+.red #pulmonaryTrunk::before {
+  content: "Aortic Valve";
 }
 /* pathways between cells in table */
 .openValve,
@@ -491,9 +445,10 @@ table {
   z-index: 1;
 }
 .red .openValve::after {
-  background: var(--table-head-bg-red);
+  background: var(--bg-red);
   color: var(--light-red);
   border: solid var(--table-lines-active-red);
+  border-width: 2px 0;
 }
 .highlight .openValve::after {
   background-color: var(--table-active-bg-blue);
@@ -542,41 +497,57 @@ table {
   transform: translateY(-100%) rotate(60deg);
 }
 .openTricuspid .animatedValve.tricuspid.open::before,
-.openPulmonary .animatedValve.pulmonary.open::before {
+.openPulmonary .animatedValve.pulmonary.open::before,
+.openMitral .animatedValve.mitral.open::before,
+.openAortic .animatedValve.aortic.open::before {
   transform: translateY(calc(-100% - 3px)) rotate(60deg);
   background: var(--table-lines-blue);
   z-index: 1;
   /* transition: transform 250ms ease; */
 }
 .red .openTricuspid .animatedValve.tricuspid.open::before,
-.red .openPulmonary .animatedValve.pulmonary.open::before {
+.red .openPulmonary .animatedValve.pulmonary.open::before,
+.red .openMitral .animatedValve.mitral.open::before,
+.red .openAortic .animatedValve.aortic.open::before {
   background: var(--table-lines-red);
 }
 .openTricuspid .animatedValve.tricuspid.open::after,
-.openPulmonary .animatedValve.pulmonary.open::after {
+.openPulmonary .animatedValve.pulmonary.open::after,
+.openMitral .animatedValve.mitral.open::after,
+.openAortic .animatedValve.aortic.open::after {
   transform: translateY(3px) rotate(-60deg);
   background: var(--table-lines-blue);
   z-index: 1;
 }
 .red .openTricuspid .animatedValve.tricuspid.open::after,
-.red .openPulmonary .animatedValve.pulmonary.open::after {
+.red .openPulmonary .animatedValve.pulmonary.open::after,
+.red .openMitral .animatedValve.mitral.open::after,
+.red .openAortic .animatedValve.aortic.open::after {
   background: var(--table-lines-red);
 }
 .openTricuspid .animatedValve.tricuspid.closed::before,
-.openPulmonary .animatedValve.pulmonary.closed::before {
+.openPulmonary .animatedValve.pulmonary.closed::before,
+.openMitral .animatedValve.mitral.closed::before,
+.openAortic .animatedValve.aortic.closed::before {
   transform: translateY(-100%) rotate(0deg);
   background: var(--table-lines-blue);
 }
 .red .openTricuspid .animatedValve.tricuspid.closed::before,
-.red .openPulmonary .animatedValve.pulmonary.closed::before {
+.red .openPulmonary .animatedValve.pulmonary.closed::before,
+.red .openMitral .animatedValve.mitral.closed::before,
+.red .openAortic .animatedValve.aortic.closed::before {
   background: var(--table-lines-red);
 }
 .openTricuspid .animatedValve.tricuspid.closed::after,
-.openPulmonary .animatedValve.pulmonary.closed::after {
+.openPulmonary .animatedValve.pulmonary.closed::after,
+.openMitral .animatedValve.mitral.closed::after,
+.openAortic .animatedValve.aortic.closed::after {
   background: var(--table-lines-blue);
 }
 .red .openTricuspid .animatedValve.tricuspid.closed::after,
-.red .openPulmonary .animatedValve.pulmonary.closed::after {
+.red .openPulmonary .animatedValve.pulmonary.closed::after,
+.red .openMitral .animatedValve.mitral.closed::after,
+.red .openAortic .animatedValve.aortic.closed::after {
   background: var(--table-lines-red);
 }
 .animatedValve.closed {
@@ -587,7 +558,11 @@ table {
 .openTricuspid .highlight .animatedValve.open::before,
 .openTricuspid .highlight .animatedValve.open::after,
 .openPulmonary .highlight .animatedValve.open::before,
-.openPulmonary .highlight .animatedValve.open::after {
+.openPulmonary .highlight .animatedValve.open::after,
+.openMitral .highlight .animatedValve.open::before,
+.openMitral .highlight .animatedValve.open::after,
+.openAortic .highlight .animatedValve.open::before,
+.openAortic .highlight .animatedValve.open::after {
   background-color: var(--table-lines-active-blue);
 }
 .red .highlight .animatedValve::before,
@@ -595,7 +570,11 @@ table {
 .red .openTricuspid .highlight .animatedValve.open::before,
 .red .openTricuspid .highlight .animatedValve.open::after,
 .red .openPulmonary .highlight .animatedValve.open::before,
-.red .openPulmonary .highlight .animatedValve.open::after {
+.red .openPulmonary .highlight .animatedValve.open::after,
+.red .openMitral .highlight .animatedValve.open::before,
+.red .openMitral .highlight .animatedValve.open::after,
+.red .openAortic .highlight .animatedValve.open::before,
+.red .openAortic .highlight .animatedValve.open::after {
   background-color: var(--table-lines-active-red);
 }
 .closedValve {
@@ -613,14 +592,17 @@ tr.active .closedValve {
 }
 
 /* BOLUS OBJECTS IN TABLE */
-#rapidFillingPhase {
+#rapidFillingPhaseRight,
+#rapidFillingPhaseLeft {
   --bolus-pos: 16.666%;
   --bolus-offset: 0px;
   --bolus-opacity: 1;
   position: relative;
 }
-#rapidFillingPhase::after,
-#diastasis::after,
+#rapidFillingPhaseRight::after,
+#rapidFillingPhaseLeft::after,
+#diastasisRight::after,
+#diastasisLeft::after,
 #atrialSystole::after,
 #isovolumetricContraction::after,
 #rapidVentricularEjection::after,
@@ -638,8 +620,8 @@ tr.active .closedValve {
   opacity: var(--bolus-opacity);
   z-index: 1;
 }
-.red #rapidFillingPhase::after,
-.red #diastasis::after,
+.red #rapidFillingPhaseLeft::after,
+.red #diastasisLeft::after,
 .red #atrialSystole::after,
 .red #isovolumetricContraction::after,
 .red #rapidVentricularEjection::after,
@@ -647,7 +629,8 @@ tr.active .closedValve {
 .red #isovolumetricRelaxation::after {
   border: 3px solid var(--bolus-red);
 }
-#diastasis {
+#diastasisRight,
+#diastasisLeft {
   position: relative;
   --bolus-pos: 41.665%;
   --bolus-offset: 0px;
@@ -687,7 +670,9 @@ tr.active .closedValve {
 /* BOX SHADOWS */
 
 .relax,
-.contract {
+.red .relax,
+.contract,
+.red .contract {
   border: 6px solid var(--table-lines-active-blue);
   width: 100%;
   height: 100%;
@@ -700,7 +685,8 @@ tr.active .closedValve {
 .red .contract {
   border: 6px solid var(--table-lines-active-red);
 }
-.contract {
+.contract,
+.red .contract {
   border-width: 0;
 }
 .sideSwitch {
@@ -730,4 +716,187 @@ tr.active .closedValve {
 }
 .sideSwitch .currentTab {
   background: darkred;
+  position: relative;
+}
+.sideSwitch .currentTab::after {
+  content: "";
+  width: 0px;
+  height: 0px;
+  border-style: solid;
+  border-width: 0 9.5px 9px 9.5px;
+  border-color: transparent transparent var(--table-lines-active-blue)
+    transparent;
+  transform: rotate(0deg);
+  position: absolute;
+  top: calc(100% + 3px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+.sideSwitch #leftSide.currentTab::after {
+  border-color: transparent transparent var(--table-lines-active-red)
+    transparent;
+}
+.controls {
+  /* background: green; */
+}
+.controls .timer {
+  text-align: center;
+  font-size: 1.5rem;
+}
+.controls .playButtons {
+  background-color: var(--table-lines-active-blue);
+  display: flex;
+  gap: 1px;
+  justify-content: left;
+  align-items: center;
+  width: 100%;
+}
+.controls.redControls .playButtons {
+  background-color: var(--table-lines-active-red);
+}
+.controls .playButtons input[type="range"] {
+  flex-grow: 8;
+  margin: 0 1rem;
+}
+.controls .playButtons button {
+  border: 0;
+  color: var(--table-head-text-blue);
+  width: 60px;
+  height: 60px;
+  background-color: transparent;
+}
+.controls.redControls .playButtons button {
+  color: var(--table-head-text-red);
+}
+.controls .playButtons button:hover {
+  cursor: pointer;
+  background-color: var(--blue);
+}
+.controls.redControls .playButtons button:hover {
+  background-color: var(--red);
+}
+/*********** Baseline, reset styles ***********/
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  width: 25rem;
+}
+
+/* Removes default focus */
+input[type="range"]:focus {
+  outline: none;
+}
+
+/******** Chrome, Safari, Opera and Edge Chromium styles ********/
+/* slider track */
+input[type="range"]::-webkit-slider-runnable-track {
+  background-color: var(--table-lines-blue);
+  border-radius: 2.5rem;
+  height: 0.5rem;
+}
+.redControls input[type="range"]::-webkit-slider-runnable-track {
+  background-color: var(--table-lines-red);
+}
+/* slider thumb */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  margin-top: -8px; /* Centers thumb on the track */
+  background-color: var(--table-lines-active-blue);
+  border-radius: 2rem;
+  height: 1.5rem;
+  width: 1.5rem;
+}
+.redControls input[type="range"]::-webkit-slider-thumb {
+  background-color: var(--table-lines-active-red);
+}
+input[type="range"]:focus::-webkit-slider-thumb {
+  /* outline: 3px solid #808080; */
+  outline-offset: 0.125rem;
+}
+
+/*********** Firefox styles ***********/
+/* slider track */
+input[type="range"]::-moz-range-track {
+  background-color: var(--table-lines-blue);
+  border-radius: 2.5rem;
+  height: 0.5rem;
+}
+.redControls input[type="range"]::-moz-range-track {
+  background-color: var(--table-lines-red);
+}
+/* slider thumb */
+input[type="range"]::-moz-range-thumb {
+  background-color: var(--blue);
+  border: none; /*Removes extra border that FF applies*/
+  border-radius: 2rem;
+  height: 1.5rem;
+  width: 1.5rem;
+}
+.redControls input[type="range"]::-moz-range-thumb {
+  background-color: var(--red);
+}
+input[type="range"]:focus::-moz-range-thumb {
+  outline-offset: 0.125rem;
+}
+
+/* The switch - the box around the slider */
+.controls .switch {
+  position: relative;
+  display: inline-block;
+  width: 52px;
+  height: 25px;
+  margin-left: 0.5rem;
+  margin-right: 1rem;
+}
+
+/* Hide default HTML checkbox */
+.controls .switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+/* The slider */
+.controls .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+.controls .slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+.controls input:checked + .slider {
+  background-color: var(--blue);
+}
+.controls.redControls input:checked + .slider {
+  background-color: var(--red);
+}
+.controls input:focus + .slider {
+  box-shadow: 0 0 1px var(--blue);
+}
+.controls.redControls input:focus + .slider {
+  box-shadow: 0 0 1px var(--red);
+}
+.controls input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
 }
