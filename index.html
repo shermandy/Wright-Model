@@ -452,7 +452,6 @@
           <button class="play-pause">Play</button>
           <button class="back">&lt;&lt;</button>
           <button class="fwd">&gt;&gt;</button>
-
           <input
             type="range"
             autocomplete="off"
@@ -463,8 +462,16 @@
             class="range"
             id="progressSlider"
           />
+          <!-- <label for="rate">Playback Rate:</label> -->
+          <select name="rate" id="rate">
+            <option value=".125">.125x</option>
+            <option value=".25">.25x</option>
+            <option value=".5">.5x</option>
+            <option value=".75">.75x</option>
+            <option value="1">1x</option>
+          </select>
           Audio
-          <label class="switch">
+          <label for="audioCheckbox" class="switch">
             <input id="audioCheckbox" type="checkbox" />
             <span class="slider round"></span>
           </label>
@@ -496,7 +503,7 @@
               <td class="openValve">2</td>
               <td class="animatedValve tricuspid open">2.5</td>
               <td class="animatedValve pulmonary open">
-                <span id="row2col5">2</span>
+                <span class="countDown" id="row2col5">2</span>
               </td>
               <td class="openValve">14</td>
             </tr>
@@ -515,7 +522,7 @@
               <td class="openValve flippedValve">4</td>
               <td class="openValve flippedValve">4</td>
               <td class="animatedValve tricuspid open">
-                <span id="row4col4">3</span>
+                <span class="countUp" id="row4col4">3</span>
                 <div class="contract"></div>
               </td>
               <td class="animatedValve pulmonary open">5</td>
@@ -526,11 +533,11 @@
               <td class="openValve">4</td>
               <td class="openValve">3</td>
               <td class="animatedValve tricuspid open">
-                <span id="row5col4">6</span>
+                <span class="countDown" id="row5col4">6</span>
                 <div class="relax"></div>
               </td>
               <td class="animatedValve pulmonary open">
-                <span id="row5col5">4</span>
+                <span class="countUp" id="row5col5">4</span>
                 <div class="contract"></div>
               </td>
               <td class="openValve">11</td>
@@ -541,11 +548,11 @@
               <td class="openValve">4</td>
               <td class="animatedValve tricuspid open">2</td>
               <td class="animatedValve pulmonary open">
-                <span id="row6col5">10</span>
+                <span class="countUp" id="row6col5">10</span>
                 <div class="contract"></div>
               </td>
               <td class="openValve">
-                <span id="row6col6">10</span>
+                <span class="countUp" id="row6col6">10</span>
               </td>
             </tr>
             <tr class="tableHead" id="slowVentricularEjection">
@@ -554,11 +561,11 @@
               <td class="openValve">4</td>
               <td class="animatedValve tricuspid open">4</td>
               <td class="animatedValve pulmonary open">
-                <span id="row7col5">25</span>
+                <span class="countDown" id="row7col5">25</span>
                 <div class="contract"></div>
               </td>
               <td class="openValve">
-                <span id="row7col6">15</span>
+                <span class="countDown" id="row7col6">15</span>
               </td>
             </tr>
             <tr class="tableHead" id="isovolumetricRelaxation">
@@ -567,11 +574,11 @@
               <td class="openValve">3</td>
               <td class="animatedValve tricuspid open">2</td>
               <td class="animatedValve pulmonary open">
-                <span id="row8col5">15</span>
+                <span class="countDown" id="row8col5">15</span>
                 <div class="relax"></div>
               </td>
               <td class="openValve">
-                <span id="row8col6">15</span>
+                <span class="countUp" id="row8col6">15</span>
               </td>
             </tr>
           </table>
@@ -599,7 +606,9 @@
               <td class="openValve">8</td>
               <td class="openValve">8</td>
               <td class="animatedValve mitral open">8</td>
-              <td class="animatedValve aortic open" id="red-row2col5">7</td>
+              <td class="animatedValve aortic open">
+                <span class="countDown" id="red-row2col5">7</span>
+              </td>
               <td class="openValve">98</td>
             </tr>
             <tr class="tableHead" id="diastasisLeft">
@@ -615,7 +624,7 @@
               <td class="openValve flippedValve">9</td>
               <td class="openValve flippedValve">9</td>
               <td class="animatedValve mitral open">
-                <span id="red-row4col4">7</span>
+                <span class="countUp" id="red-row4col4">7</span>
                 <div class="contract"></div>
               </td>
               <td class="animatedValve aortic open">8</td>
@@ -626,11 +635,11 @@
               <td class="openValve">8</td>
               <td class="openValve">8</td>
               <td class="animatedValve mitral open">
-                <span id="red-row5col4">10</span>
+                <span class="countDown" id="red-row5col4">10</span>
                 <div class="relax"></div>
               </td>
               <td class="animatedValve aortic open">
-                <span id="red-row5col5">5</span>
+                <span class="countUp" id="red-row5col5">5</span>
                 <div class="contract"></div>
               </td>
               <td class="openValve">81</td>
@@ -641,11 +650,11 @@
               <td class="openValve">4</td>
               <td class="animatedValve mitral open">2</td>
               <td class="animatedValve aortic open">
-                <span id="red-row6col5">80</span>
+                <span class="countUp" id="red-row6col5">80</span>
                 <div class="contract"></div>
               </td>
               <td class="openValve">
-                <span id="red-row6col6">80</span>
+                <span class="countUp" id="red-row6col6">80</span>
               </td>
             </tr>
             <tr class="tableHead" id="slowVentricularEjection">
@@ -654,11 +663,11 @@
               <td class="openValve">7</td>
               <td class="animatedValve mitral open">5</td>
               <td class="animatedValve aortic open">
-                <span id="red-row7col5">120</span>
+                <span class="countDown" id="red-row7col5">120</span>
                 <div class="contract"></div>
               </td>
               <td class="openValve">
-                <span id="red-row7col6">120</span>
+                <span class="countDown" id="red-row7col6">120</span>
               </td>
             </tr>
             <tr class="tableHead" id="isovolumetricRelaxation">
@@ -667,11 +676,11 @@
               <td class="openValve">7</td>
               <td class="animatedValve mitral open">7</td>
               <td class="animatedValve aortic open">
-                <span id="red-row8col5">85</span>
+                <span class="countDown" id="red-row8col5">85</span>
                 <div class="relax"></div>
               </td>
               <td class="openValve">
-                <span id="red-row8col6">99</span>
+                <span class="countUp" id="red-row8col6">99</span>
               </td>
             </tr>
           </table>

@@ -743,6 +743,12 @@ tr.active .closedValve {
   text-align: center;
   font-size: 1.5rem;
 }
+#rate {
+  background-color: transparent;
+  border: 0;
+  color: #fff;
+  margin-right: 1rem;
+}
 .controls .playButtons {
   background-color: var(--table-lines-active-blue);
   display: flex;
@@ -750,6 +756,7 @@ tr.active .closedValve {
   justify-content: left;
   align-items: center;
   width: 100%;
+  font-size: 0.9rem;
 }
 .controls.redControls .playButtons {
   background-color: var(--table-lines-active-red);
@@ -757,6 +764,10 @@ tr.active .closedValve {
 .controls .playButtons input[type="range"] {
   flex-grow: 8;
   margin: 0 1rem;
+}
+.controls,
+.controls button {
+  font-family: "Roboto Mono", monospace;
 }
 .controls .playButtons button {
   border: 0;
@@ -899,4 +910,68 @@ input[type="range"]:focus::-moz-range-thumb {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
+}
+.countUp,
+.countDown {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+.countUp::after,
+.countDown::after {
+  content: "▲";
+  color: var(--light-blue);
+  position: absolute;
+  top: 70%;
+  transform: translateY(-50%);
+  right: 10%;
+  animation: moveUp 500ms infinite;
+  visibility: hidden;
+}
+.red .countUp::after,
+.red .countDown::after {
+  color: var(--light-red);
+}
+.countDown::after {
+  content: "▼";
+  animation: moveDown 500ms infinite;
+}
+.highlight .countDown::after,
+.highlight .countUp::after {
+  visibility: visible;
+}
+@keyframes moveUp {
+  0% {
+    top: 70%;
+    opacity: 1;
+  }
+  70% {
+    top: 20%;
+    opacity: 1;
+  }
+  71% {
+    opacity: 0;
+  }
+  100% {
+    top: 20%;
+    opacity: 0;
+  }
+}
+
+@keyframes moveDown {
+  0% {
+    top: 20%;
+    opacity: 1;
+  }
+  70% {
+    top: 70%;
+    opacity: 1;
+  }
+  71% {
+    opacity: 0;
+  }
+  100% {
+    top: 70%;
+    opacity: 0;
+  }
 }

@@ -24,9 +24,9 @@ const audioPlay = async url => {
 };
 
 //options
-const autoplayOption = false;
+const autoplayOption = true;
 const loopOption = true;
-const rateOption = .125;
+let rateOption = .125;
 const numberAnimationDuration = 250;
 
 // alert(newDuration)
@@ -65,6 +65,19 @@ const [$pulmonary1] = utils.$(".pulmonary-valve-1");
 const [$pulmonary2] = utils.$(".pulmonary-valve-2");
 const [$aortic1] = utils.$(".aortic-valve-1");
 const [$aortic2] = utils.$(".aortic-valve-2");
+
+// Change playback speed
+const rateDropdown = document.getElementById('rate');
+
+// Add an event listener for the 'change' event
+rateDropdown.addEventListener('change', function() {
+    // This function will execute when the dropdown value changes
+    const selectedValue = this.value; // Get the selected value
+
+    tl.speed = selectedValue;
+    console.log('New timer.speed value:', tl.speed);
+    // Perform other actions based on the selected value
+});
 
 const updateButtonLabel = (tl) => {
   $playPauseButton.textContent = tl.paused ? "Play" : "Pause";
@@ -436,7 +449,7 @@ const tl = createTimeline({
     d: "M316 268C315 271 301 265 296 267 290 269 287.06 271.55 283.33 275.89L278.86 273.96C280.57 268.08 287.93 262.57 295 261 303 259 314 263 316 268Z",
     onComplete: self => {
       if (document.getElementById('audioCheckbox').checked) {
-        audioPlay('/audio/lub.mp3');
+        audioPlay('audio/lub.mp3');
       }
     }
   }, "<<"
@@ -578,7 +591,7 @@ const tl = createTimeline({
     d: "M263.36 305.47C266.28 307.72 277 297 281 292 284 288 286.6 278.74 284.15 273.13L279.48 274.52C279.41 280.24 278.99 282.01 275 288 272 293 261.07 303.72 263.35 305.47Z",
     onComplete: self => {
       if (document.getElementById('audioCheckbox').checked) {
-        audioPlay('/audio/dub.mp3');
+        audioPlay('audio/dub.mp3');
       }
     }
   }, "<<"
